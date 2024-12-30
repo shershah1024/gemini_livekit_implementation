@@ -42,5 +42,7 @@
 
 4. I have not found a better way to send system messages yet.
 
+5. Google automatically handles VAD (Not great yet), so we don't have to add silero
+
 
 Use the livekit sandbox to test
