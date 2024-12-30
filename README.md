@@ -34,7 +34,7 @@
 
 ## Development Notes
 
-1. Gemini function calling works a little differently. You have to define the functions and send them as part of the set up message. 
+1. Gemini function calling works a little differently. You have to define the functions and send them as part of the set up message. I have added a basic example for logging water intake
 
 2. I have not figured out how to change the voice. If anyone can, it would be amazing
 

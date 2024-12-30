@@ -66,8 +66,9 @@ class GeminiRealtimeSession:
         self.sample_rate_out = sample_rate_out
         self._function_call_enabled = function_call_enabled
         self._audio_callback = audio_callback
-        self._first_audio = True  
-        base_instructions = f"""You are an assistant focused on helping your user log water intake
+        self._first_audio = True
+        timestamp = datetime.now(ZoneInfo("UTC"))
+        base_instructions = f"""You are an assistant focused on helping your user log water intake. Do not respond to this message. Just start with hello and a greeting. The time is {timestamp}
 
 """
         
@@ -276,32 +277,19 @@ class GeminiRealtimeSession:
 
     async def send_text(self):
         try:
-            first_message = True  # Track if this is the first message
             while True:
                 text = await asyncio.to_thread(input, "message > ")
                 if text.lower() == "q":
                     break
 
-                if first_message:
-                    msg = {
-                        "client_content": {
-                            "turn_complete": True,
-                            "turns": [
-                                {"role": "user", "parts": [{"text": self.instructions}]},
-                                {"role": "user", "parts": [{"text": text}]}
-                            ]
-                        }
+                msg = {
+                    "client_content": {
+                        "turn_complete": True,
+                        "turns": [
+                            {"role": "user", "parts": [{"text": text}]}
+                        ]
                     }
-                    first_message = False
-                else:
-                    msg = {
-                        "client_content": {
-                            "turn_complete": True,
-                            "turns": [
-                                {"role": "user", "parts": [{"text": text}]}
-                            ]
-                        }
-                    }
+                }
                 await self._session.send(json.dumps(msg))
                 logger.debug("Sent text message")
 
