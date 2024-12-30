@@ -48,11 +48,9 @@ class GeminiRealtimeSession:
             self,
             api_key: str,
             model: str = "gemini-2.0-flash-exp",
-            temperature: float = 0.7,
             sample_rate_in: int = 16000,
             sample_rate_out: int = 24000,
             function_call_enabled: bool = True,
-            voice_name: str = "Aoede",
             audio_callback=None,
     ):
         self.api_key = api_key
@@ -60,8 +58,6 @@ class GeminiRealtimeSession:
             raise ValueError("GEMINI_API_KEY environment variable not set.")
 
         self.model = model
-        self.voice_name = voice_name
-        self.temperature = temperature
         self.sample_rate_in = sample_rate_in
         self.sample_rate_out = sample_rate_out
         self._function_call_enabled = function_call_enabled
